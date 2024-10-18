@@ -1,0 +1,35 @@
+service: benchmark_elixir
+
+image: aronwolf/benchmark_elixir
+
+servers:
+  web:
+    - 135.181.150.132
+
+proxy:
+  ssl: true
+  host: benchmark-elixir.webcloudpower.com
+
+registry:
+  username: aronwolf
+
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+env:
+  clear:
+    DATABASE_PATH: /app/storage/benchmark_elixir_prod.db
+    SECRET_KEY_BASE: zKY881Xh5IZx1TQYdL8XxZuJ1M6W+Csc919hP5q94axmqbYo3cpN8UHRQYQ1d7bp 
+    PORT: 80
+    PHX_HOST: benchmark-elixir.webcloudpower.com 
+
+aliases:
+  console: app exec --interactive --reuse "bin/benchmark_elixir --remote"
+  shell: app exec --interactive --reuse "bash"
+  logs: app logs -f
+
+volumes:
+  - "finance_storage:/app/storage"
+
+builder:
+  arch: amd64
